@@ -6,10 +6,6 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  # Opt into Node.js 24 to remove the deprecation warning
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -21,11 +17,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "22" # Using the latest stable LTS is safer than 24 for now
+          node-version: "22"
           cache: "npm"
 
       - name: Install dependencies
-        # Added --legacy-peer-deps to match your local successful install
         run: npm install --legacy-peer-deps
 
       - name: Create .env file
