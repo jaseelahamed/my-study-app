@@ -21,6 +21,7 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
+        # Standard install to ensure all devDependencies (Vite) are present
         run: npm install
 
       - name: Create .env file
@@ -34,7 +35,8 @@ jobs:
           echo "VITE_FIREBASE_MEASUREMENT_ID=${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}" >> .env
 
       - name: Build app
-        run: npm run build
+        # Using npx is the safest way to execute local binaries in CI
+        run: npx vite build
 
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
